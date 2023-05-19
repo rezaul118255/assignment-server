@@ -39,7 +39,28 @@ async function run() {
             const result = await toysCollection.insertOne(body)
             console.log(body)
             res.send(result)
+        });
+        app.get("/allJobs", async (req, res) => {
+            const result = await toysCollection.find({}).toArray();
+            res.send(result)
         })
+        app.get("/allJobs/:email", async (req, res) => {
+            // console.log(req.params.email)
+            const result = await toysCollection.find({ postedBy: req.params.email }).toArray();
+            res.send(result)
+        })
+        app.get("/getToysByText/:text", async (req, res) => {
+            const text = req.params.text;
+            const result = await toysCollection
+                .find({
+                    $or: [
+                        { title: { $regex: text, $options: "i" } },
+                        { category: { $regex: text, $options: "i" } },
+                    ],
+                })
+                .toArray();
+            res.send(result);
+        });
 
 
 
