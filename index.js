@@ -45,9 +45,9 @@ async function run() {
             res.send(result)
         })
         // app.get('/allJobs/:_id', (req, res) => {
-        //     const id = parseInt(req.params.id);
+        //     const id = parseInt(req.params._id);
         //     // console.log(id)
-        //     const result = toysCollection.find(n => n._id === _id)
+        //     const result = toysCollection.find(n => n.id === _id)
         //     res.send(result)
         // })
         app.get("/allJobs/:test", async (req, res) => {
