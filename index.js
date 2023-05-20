@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 const port = process.env.port || 5000;
 
@@ -44,6 +44,23 @@ async function run() {
             const result = await toysCollection.find({}).toArray();
             res.send(result)
         })
+        // app.get('/allJobs/:_id', (req, res) => {
+        //     const id = parseInt(req.params.id);
+        //     // console.log(id)
+        //     const result = toysCollection.find(n => n._id === _id)
+        //     res.send(result)
+        // })
+        app.get("/allJobs/:test", async (req, res) => {
+            // console.log(req.params.test);
+            if (req.params.test == "Science Kits" || req.params.test == "Math Learning Toys" || req.params.test == "Engineering Kits") {
+                const result = await toysCollection.find({ category: req.params.test })
+                    .toArray();
+                return res.send(result)
+            }
+
+            const result = await toysCollection.find({}).toArray();
+            res.send(result)
+        })
         app.get("/allJobs/:email", async (req, res) => {
             // console.log(req.params.email)
             const result = await toysCollection.find({ postedBy: req.params.email }).toArray();
@@ -61,6 +78,18 @@ async function run() {
                 .toArray();
             res.send(result);
         });
+        app.delete("/allJobs/:id", async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            // console.log(req.params.email)
+            const result = await toysCollection.deleteOne(query);
+            res.send(result)
+        });
+
+
+
+
+
 
 
 
@@ -78,3 +107,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`education toys coming soon on ${port}`)
 })
+
+
+
