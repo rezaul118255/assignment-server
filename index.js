@@ -54,16 +54,25 @@
 //             const result = await toysCollection.find({}).toArray();
 //             res.send(result)
 //         });
-//         app.get("/allJobs/:_id", async (req, res) => {
-//             const _id = req.params._id;
-//             const query = { _id: new ObjectId(_id) };
+//         // app.get("/allJobs/:_id", async (req, res) => {
+//         //     const _id = req.params._id;
+//         //     const query = { _id: new ObjectId(_id) };
+//         //     const result = await toysCollection.findOne(query);
+
+//         //     if (!result) {
+//         //         return res.sendStatus(404); // Product not found
+//         //     }
+
+//         //     res.send(result);
+//         // });
+
+
+//         app.get("/allJobs/:id", async (req, res) => {
+//             const id = req.params.id
+//             const query = { _id: new ObjectId(id) }
+//             // console.log(req.params.email)
 //             const result = await toysCollection.findOne(query);
-
-//             if (!result) {
-//                 return res.sendStatus(404); // Product not found
-//             }
-
-//             res.send(result);
+//             res.send(result)
 //         });
 
 
@@ -178,12 +187,22 @@ async function run() {
             const result = await toysCollection.find({}).toArray();
             res.send(result)
         })
+
+
+
+
+
         // app.get('/allJobs/:_id', (req, res) => {
         //     const id = parseInt(req.params._id);
         //     // console.log(id)
         //     const result = toysCollection.find(n => n.id === _id)
         //     res.send(result)
         // })
+
+
+
+
+
         app.get("/allJobs/:test", async (req, res) => {
             // console.log(req.params.test);
             if (req.params.test == "Science Kits" || req.params.test == "Math Learning Toys" || req.params.test == "Engineering Kits") {
